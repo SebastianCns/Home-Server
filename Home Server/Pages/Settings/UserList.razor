@@ -1,12 +1,58 @@
 ﻿@page "/user-list"
 
-<h2>UserList</h2>
+@using Home_Server.Models
+@using Home_Server.Data
+@inject Home_Server.Data.UserService userService;
+
+@if (users == null || users.Count == 0)
+{
+    <p>No users to display</p>
+} 
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Familyname</th>
+                <th>Birthday</th>
+                <th>Email</th>
+                <th>Home</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        @foreach(var user in users)
+        {
+            <tr>
+                <UserDetail User="user"></UserDetail>
+            </tr>
+        }
+    </table>
+}
 
 @code {
-/*Author: SebastianCns Date: 25.01.23
-*
-*Description:
-*
-*
-*/
+    /*Author: SebastianCns Date: 25.01.23
+        *
+        *Description:
+        *
+        *
+        */
+
+    private List<UserModel> users;
+
+    protected override void OnInitialized()
+    {
+        //UserModel test = new UserModel()
+        //    {
+        //        Name = "sebastian",
+        //        FamilyName = "conseur",
+        //        DayOfBirth = DateTime.Now,
+        //        Email = "sconseur@yahoo.de",
+        //        Home = "Gründau"
+        //    };
+        //userService.AddUser(test);
+        users = userService.GetUsers();
+        base.OnInitialized();
+    }
 }

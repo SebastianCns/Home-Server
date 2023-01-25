@@ -1,12 +1,52 @@
 ﻿@page "/user-detail"
 
-<h1 class="lulu">UserDetail</h1>
+@using Home_Server.Models
+
+<td>
+    @User.Name
+</td>
+
+<td>
+    @User.FamilyName
+</td>
+
+<td>
+    @User.DayOfBirth
+</td>
+
+<td>
+    @User.Email
+</td>
+
+<td>
+    @User.Home
+</td>
+
+<td>
+    <button @onclick="Edit">Edit</button>
+</td>
+
+<td>
+    <button @onclick="Delete">Delete</button>
+</td>
 
 @code {
-/*Author: SebastianCns Date: 25.01.23
-*
-*Description:
-*
-*
-*/
+    /*Author: SebastianCns Date: 25.01.23
+    *
+    *Description:
+    *
+    *
+    */
+    [Parameter]
+    public UserModel User { get; set; }
+
+    public void Edit()
+    {
+        <p>edit pressed</p>
+    }
+
+    public void Delete()
+    {
+        <p>delete pressed</p>
+    }
 }
