@@ -3,32 +3,33 @@
 @using Home_Server.Models
 
 <td>
-    @User.Name
+    @CurrentUser.Name
 </td>
 
 <td>
-    @User.FamilyName
+    @CurrentUser.FamilyName
 </td>
 
 <td>
-    @User.DayOfBirth
+    @CurrentUser.DayOfBirth
 </td>
 
 <td>
-    @User.Email
+    @CurrentUser.Email
 </td>
 
 <td>
-    @User.Home
+    @CurrentUser.Home
 </td>
 
 <td>
-    <button @onclick="Edit">Edit</button>
+    <button style="background-color:cadetblue; color:white" @onclick="Delete">Delete</button>
 </td>
 
 <td>
-    <button @onclick="Delete">Delete</button>
+    <button style="background-color:cadetblue; color:white" @onclick="Edit">Edit</button>
 </td>
+
 
 @code {
     /*Author: SebastianCns Date: 25.01.23
@@ -38,15 +39,17 @@
     *
     */
     [Parameter]
-    public UserModel User { get; set; }
+    public UserModel CurrentUser { get; set; }
+    [Parameter]
+    public EventCallback<UserModel> OnDeleteEvent { get; set; }
 
-    public void Edit()
+    private void Edit()
     {
-        <p>edit pressed</p>
+
     }
 
-    public void Delete()
+    private void Delete()
     {
-        <p>delete pressed</p>
+        OnDeleteEvent.InvokeAsync(CurrentUser);
     }
 }

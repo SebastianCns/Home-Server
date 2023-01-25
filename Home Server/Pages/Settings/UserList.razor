@@ -10,7 +10,7 @@
 } 
 else
 {
-    <table class="table table-striped">
+    <table class="table table-bordered">
         <thead>
             <tr>
                 <th>Name</th>
@@ -22,37 +22,36 @@ else
                 <th>Delete</th>
             </tr>
         </thead>
-        @foreach(var user in users)
-        {
-            <tr>
-                <UserDetail User="user"></UserDetail>
-            </tr>
-        }
+        <tbody>
+            @foreach(var user in users)
+            {
+                <tr>
+                    <UserDetail CurrentUser="user" OnDeleteEvent="DeleteUser"></UserDetail>
+                </tr>
+            }
+        </tbody>
     </table>
 }
 
 @code {
     /*Author: SebastianCns Date: 25.01.23
-        *
-        *Description:
-        *
-        *
-        */
+    *
+    *Description:
+    *
+    *
+    */
 
     private List<UserModel> users;
 
     protected override void OnInitialized()
     {
-        //UserModel test = new UserModel()
-        //    {
-        //        Name = "sebastian",
-        //        FamilyName = "conseur",
-        //        DayOfBirth = DateTime.Now,
-        //        Email = "sconseur@yahoo.de",
-        //        Home = "Gründau"
-        //    };
-        //userService.AddUser(test);
         users = userService.GetUsers();
         base.OnInitialized();
+    }
+
+    private void DeleteUser(UserModel user)
+    {
+        userService.DeleteUser(user.Id);
+        //users.RemoveAll(a => a.Id == user.Id);
     }
 }
