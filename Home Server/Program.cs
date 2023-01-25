@@ -4,9 +4,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages(); /*outsource in seperate method*/
-builder.Services.AddServerSideBlazor();
+ConfigureServices(builder.Services);
 
 var app = builder.Build();
 
@@ -28,3 +26,11 @@ app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 
 app.Run();
+
+static void ConfigureServices(IServiceCollection service)
+{
+    // Add services to the container.
+    service.AddRazorPages(); 
+    service.AddServerSideBlazor();
+    service.AddSingleton<UserService>();    // Register Service
+}
