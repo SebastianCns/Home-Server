@@ -7,9 +7,4 @@
     <RootNamespace>Home_Server</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
