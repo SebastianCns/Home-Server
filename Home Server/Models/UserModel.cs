@@ -1,4 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿/*Author: SebastianCns Date: 25.01.23
+ * 
+ *Description:
+ *Model of a user 
+ *
+ */
+
+using System.ComponentModel.DataAnnotations;
 
 namespace Home_Server.Models
 {
