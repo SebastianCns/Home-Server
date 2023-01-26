@@ -1,13 +1,32 @@
 ﻿@page "/add-edit-user"
 
-<h3>AddEditUser</h3>
+@using Home_Server.Models
+
+<EditForm Model="CurrentUser" OnValidSubmit="SaveUser">
+    <DataAnnotationsValidator></DataAnnotationsValidator> @*Checks if the input values are correct*@
+    <InputText class="form-control" placeholder="Name" @bind-Value="@CurrentUser.Name"></InputText><br />
+    <ValidationMessage For="(() => CurrentUser.Name)"></ValidationMessage><br />
+    <InputText class="form-control" placeholder="Familyname" @bind-Value="@CurrentUser.FamilyName"></InputText><br />
+    <ValidationMessage For="(() => CurrentUser.FamilyName)"></ValidationMessage><br />
+    <InputDate class="form-control" @bind-Value="@CurrentUser.DayOfBirth"></InputDate><br />
+    <InputText class="form-control" placeholder="Email" @bind-Value="@CurrentUser.Email"></InputText><br />
+    <ValidationMessage For="(() => CurrentUser.Email)"></ValidationMessage><br />
+    <InputText class="form-control" placeholder="Home adress" @bind-Value="@CurrentUser.Home"></InputText><br />
+    <ValidationMessage For="(() => CurrentUser.Home)"></ValidationMessage>
+</EditForm>
 
 @code {
-/*Author: SebastianCns Date: 25.01.23
-*
-*Description:
-*
-*
-*/
+    /*Author: SebastianCns Date: 25.01.23
+    *
+    *Description:
+    *
+    *
+    */
+    [Parameter]
+    public UserModel CurrentUser { get; set; }
 
+    private void SaveUser()
+    {
+        
+    }
 }

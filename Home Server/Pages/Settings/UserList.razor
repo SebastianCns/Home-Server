@@ -3,6 +3,7 @@
 @using Home_Server.Models
 @using Home_Server.Data
 @inject Home_Server.Data.UserService userService;
+@inject NavigationManager navigationManager;
 
 @if (users == null || users.Count == 0)
 {
@@ -33,6 +34,11 @@ else
     </table>
 }
 
+<button style="background-color:cadetblue; color:white"
+    @onclick="AddUser">
+    Add User
+</button>
+
 @code {
     /*Author: SebastianCns Date: 25.01.23
     *
@@ -53,5 +59,10 @@ else
     {
         userService.DeleteUser(user.Id);
         //users.RemoveAll(a => a.Id == user.Id);
+    }
+
+    private void AddUser()
+    {
+        navigationManager.NavigateTo("/add-user");
     }
 }

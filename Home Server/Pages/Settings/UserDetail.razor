@@ -1,5 +1,6 @@
 ﻿@page "/user-detail"
 
+@inject NavigationManager navigationManager;
 @using Home_Server.Models
 
 <td>
@@ -35,9 +36,11 @@
     /*Author: SebastianCns Date: 25.01.23
     *
     *Description:
-    *
-    *
+    *Shows a row in the table for the userdata and handle the events of deleting and editing
+    *a user
+    * 
     */
+
     [Parameter]
     public UserModel CurrentUser { get; set; }
     [Parameter]
@@ -45,7 +48,7 @@
 
     private void Edit()
     {
-
+        navigationManager.NavigateTo("/edit-user");
     }
 
     private void Delete()
