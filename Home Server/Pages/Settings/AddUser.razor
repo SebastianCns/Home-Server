@@ -1,0 +1,30 @@
+﻿@page "/add-user"
+
+@using Home_Server.Models
+@inject NavigationManager navigationManager;
+@inject Home_Server.Data.UserService userService;
+
+<h1>Add User</h1>
+<AddEditUser CurrentUser="user" OnSaveEvent="SaveUserAdd"></AddEditUser>
+
+@code {
+    /*Author: SebastianCns Date: 25.01.23
+        *
+    *Description:
+    *
+    *
+    */
+    private UserModel user;
+
+    protected override void OnInitialized()
+    {
+        user = new UserModel();
+        base.OnInitialized();
+    }
+
+    private void SaveUserAdd()
+    {
+        userService.AddUser(user);
+        navigationManager.NavigateTo("/settings");
+    }
+}

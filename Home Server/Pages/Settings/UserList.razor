@@ -1,12 +1,68 @@
 ﻿@page "/user-list"
 
-<h2>UserList</h2>
+@using Home_Server.Models
+@using Home_Server.Data
+@inject Home_Server.Data.UserService userService;
+@inject NavigationManager navigationManager;
+
+@if (users == null || users.Count == 0)
+{
+    <p>No users to display</p>
+} 
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Familyname</th>
+                <th>Birthday</th>
+                <th>Email</th>
+                <th>Home</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var user in users)
+            {
+                <tr>
+                    <UserDetail CurrentUser="user" OnDeleteEvent="DeleteUser"></UserDetail>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<button style="background-color:cadetblue; color:white"
+    @onclick="AddUser">
+    Add User
+</button>
 
 @code {
-/*Author: SebastianCns Date: 25.01.23
-*
-*Description:
-*
-*
-*/
+    /*Author: SebastianCns Date: 25.01.23
+    *
+    *Description:
+    *
+    *
+    */
+
+    private List<UserModel> users;
+
+    protected override void OnInitialized()
+    {
+        users = userService.GetUsers();
+        base.OnInitialized();
+    }
+
+    private void DeleteUser(UserModel user)
+    {
+        userService.DeleteUser(user.Id);
+        //users.RemoveAll(a => a.Id == user.Id);
+    }
+
+    private void AddUser()
+    {
+        navigationManager.NavigateTo("/add-user");
+    }
 }

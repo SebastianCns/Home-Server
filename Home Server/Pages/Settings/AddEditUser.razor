@@ -1,13 +1,35 @@
 ﻿@page "/add-edit-user"
 
-<h3>AddEditUser</h3>
+@using Home_Server.Models
+
+<EditForm Model="CurrentUser" OnValidSubmit="Save">
+    <DataAnnotationsValidator></DataAnnotationsValidator> @*Checks if the input values are correct*@
+    <InputText class="form-control" placeholder="Name" @bind-Value="@CurrentUser.Name"></InputText>
+    <ValidationMessage For="(() => CurrentUser.Name)"></ValidationMessage><br />
+    <InputText class="form-control" placeholder="Familyname" @bind-Value="@CurrentUser.FamilyName"></InputText>
+    <ValidationMessage For="(() => CurrentUser.FamilyName)"></ValidationMessage><br />
+    <InputDate class="form-control" @bind-Value="@CurrentUser.DayOfBirth"></InputDate><br />
+    <InputText class="form-control" placeholder="Email" @bind-Value="@CurrentUser.Email"></InputText>
+    <ValidationMessage For="(() => CurrentUser.Email)"></ValidationMessage><br />
+    <InputText class="form-control" placeholder="Home" @bind-Value="@CurrentUser.Home"></InputText>
+    <ValidationMessage For="(() => CurrentUser.Home)"></ValidationMessage><br />
+    <button style="background-color:cadetblue; color:white">Save</button>
+</EditForm>
 
 @code {
-/*Author: SebastianCns Date: 25.01.23
-*
-*Description:
-*
-*
-*/
+    /*Author: SebastianCns Date: 25.01.23
+    *
+    *Description:
+    *
+    *
+    */
+    [Parameter]
+    public UserModel CurrentUser { get; set; }
+    [Parameter]
+    public EventCallback OnSaveEvent{ get; set; }
 
+    private void Save()
+    {
+        OnSaveEvent.InvokeAsync();
+    }
 }

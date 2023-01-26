@@ -1,12 +1,64 @@
 ﻿@page "/user-detail"
 
-<h1 class="lulu">UserDetail</h1>
+@inject NavigationManager navigationManager;
+@inject IJSRuntime jsRuntime;
+@using Home_Server.Models
+
+<td>
+    @CurrentUser.Name
+</td>
+
+<td>
+    @CurrentUser.FamilyName
+</td>
+
+<td>
+    @CurrentUser.DayOfBirth.ToShortDateString()
+</td>
+
+<td>
+    @CurrentUser.Email
+</td>
+
+<td>
+    @CurrentUser.Home
+</td>
+
+<td>
+    <button style="background-color:cadetblue; color:white" @onclick="Delete">Delete</button>
+</td>
+
+<td>
+    <button style="background-color:cadetblue; color:white" @onclick="Edit">Edit</button>
+</td>
+
 
 @code {
-/*Author: SebastianCns Date: 25.01.23
-*
-*Description:
-*
-*
-*/
+    /*Author: SebastianCns Date: 25.01.23
+    *
+    *Description:
+    *Shows a row in the table for the userdata and handle the events of deleting and editing
+    *a user
+    * 
+    */
+
+    [Parameter]
+    public UserModel CurrentUser { get; set; }
+    [Parameter]
+    public EventCallback<UserModel> OnDeleteEvent { get; set; }
+
+    private void Edit()
+    {
+        navigationManager.NavigateTo("/edit-user/" + CurrentUser.Id);
+    }
+
+    private async Task Delete()
+    {
+        bool confirm = await jsRuntime.InvokeAsync<bool>("confirm", "Do you want to delete this user?");
+
+        if (confirm)
+        {
+            OnDeleteEvent.InvokeAsync(CurrentUser);
+        }
+    }
 }

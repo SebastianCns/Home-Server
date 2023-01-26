@@ -12,6 +12,11 @@ namespace Home_Server.Models
     [Serializable]
     public class UserModel
     {
+        public UserModel()
+        {
+            DayOfBirth = new DateTime(1990, 1, 1); // Set default for day of birth
+        }
+
         public int Id { get; set; }
         [Required]
         [MaxLength(20, ErrorMessage = "Name is to long")]
