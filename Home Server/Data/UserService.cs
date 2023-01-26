@@ -17,23 +17,6 @@ namespace Home_Server.Data
         public UserService()
         {
             users = new List<UserModel>();
-
-            // ----- Delete after testing -------
-            users.Add(new UserModel()
-            {
-                Id = 1,
-                Name = "Sebastian",
-                FamilyName = "Conseur",
-            }); ;
-            users.Add(new UserModel()
-            {
-                Id = 2,
-                Name = "Sophia",
-                FamilyName = "Wichmann",
-                DayOfBirth = DateTime.Now,
-                Email = "sophia.wichmann@t-online.de",
-                Home = "Gründau"
-            });
         }
 
         public void AddUser(UserModel user)

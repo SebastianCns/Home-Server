@@ -12,7 +12,7 @@
 </td>
 
 <td>
-    @CurrentUser.DayOfBirth
+    @CurrentUser.DayOfBirth.ToShortDateString()
 </td>
 
 <td>
@@ -48,7 +48,7 @@
 
     private void Edit()
     {
-        navigationManager.NavigateTo("/edit-user");
+        navigationManager.NavigateTo("/edit-user/" + CurrentUser.Id);
     }
 
     private void Delete()

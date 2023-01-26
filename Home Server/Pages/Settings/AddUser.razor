@@ -5,7 +5,7 @@
 @inject Home_Server.Data.UserService userService;
 
 <h1>Add User</h1>
-<AddEditUser CurrentUser="User" OnSaveEvent="SaveUser"></AddEditUser>
+<AddEditUser CurrentUser="user" OnSaveEvent="SaveUserAdd"></AddEditUser>
 
 @code {
     /*Author: SebastianCns Date: 25.01.23
@@ -14,17 +14,17 @@
     *
     *
     */
-    private UserModel User;
+    private UserModel user;
 
     protected override void OnInitialized()
     {
-        User = new UserModel();
+        user = new UserModel();
         base.OnInitialized();
     }
 
-    private void SaveUser()
+    private void SaveUserAdd()
     {
-        userService.AddUser(User);
-        navigationManager.NavigateTo("/user-list");
+        userService.AddUser(user);
+        navigationManager.NavigateTo("/settings");
     }
 }
