@@ -13,15 +13,25 @@ namespace Home_Server.Data
     public class UserService
     {
         private List<UserModel> users;
+        private int nextUserID;
 
         public UserService()
         {
+            nextUserID = 0;
             users = new List<UserModel>();
+        }
+
+        public void SetUserID(int uID)
+        {
+            nextUserID = uID + 1;
         }
 
         public void AddUser(UserModel user)
         {
+            user.Id = nextUserID;
             users.Add(user);
+
+            nextUserID++;
         }
 
         public List<UserModel> GetUsers()
