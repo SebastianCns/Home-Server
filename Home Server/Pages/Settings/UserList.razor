@@ -43,7 +43,8 @@ else
     /*Author: SebastianCns Date: 25.01.23
     *
     *Description:
-    *
+    *Main page of the user management. This code shows the table with
+    *containing user data and implements a button to add new users.
     *
     */
 
@@ -58,7 +59,6 @@ else
     private void DeleteUser(UserModel user)
     {
         userService.DeleteUser(user.Id);
-        //users.RemoveAll(a => a.Id == user.Id);
     }
 
     private void AddUser()

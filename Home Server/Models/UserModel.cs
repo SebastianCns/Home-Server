@@ -22,14 +22,19 @@ namespace Home_Server.Models
         [MaxLength(20, ErrorMessage = "Name is to long")]
         public string Name { get; set; }
 
+        [Required]
         [MaxLength(20, ErrorMessage = "Name is to long")]
         public string FamilyName { get; set; }
+
+        [Required]
         public DateTime DayOfBirth { get; set; }
 
+        [Required]
         [MaxLength(40, ErrorMessage = "Name is to long")]
         [EmailAddress(ErrorMessage = "Input is not an email adress")]
         public string Email { get; set; }
 
+        [Required]
         [MaxLength(40, ErrorMessage = "Adress is to long")]
         public string Home { get; set; }
     }

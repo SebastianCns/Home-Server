@@ -1,24 +1,34 @@
-﻿/*Author: SebastianCns Date: 25.01.23
+﻿/*Author: SebastianCns Date: 27.01.23
  * 
  *Description:
  *Code to handel the available users. You can add, get all, get by id, delete and edit a user.
- *A user is an instance of the 'UserModel'.
+ *A user is an instance of the 'UserModel'. The data are stored in a database, which can be 
+ *accessed with the DBUserService class.
  * 
  */
 
 using Home_Server.Models;
+using Microsoft.AspNetCore.Components;
+using MySqlConnector;
 
 namespace Home_Server.Data
 {
     public class UserService
     {
-        private List<UserModel> users;
+        private IDBService<UserModel, List<UserModel>> database;
+        private List<UserModel> users;  // Local list of UserModels
         private int nextUserID;
 
-        public UserService()
+        public UserService(MySqlConnection dbConnection)
         {
-            nextUserID = 0;
-            users = new List<UserModel>();
+            nextUserID = 1;
+            database = new DBUserService<UserModel, List<UserModel>>(dbConnection);
+        }
+
+        public async Task Init()
+        {
+            users = await database.GetAllAsync();
+            SetUserID(users.Last().Id);
         }
 
         public void SetUserID(int uID)
@@ -30,7 +40,7 @@ namespace Home_Server.Data
         {
             user.Id = nextUserID;
             users.Add(user);
-
+            database.AddAsync(user);
             nextUserID++;
         }
 
@@ -59,6 +69,7 @@ namespace Home_Server.Data
                 if(user.Id == id)
                 {
                     users.Remove(user);
+                    database.DeleteAsync(user);
                     return;
                 }
             }
@@ -75,6 +86,9 @@ namespace Home_Server.Data
                     user.DayOfBirth = changedUser.DayOfBirth;
                     user.Email = changedUser.Email;
                     user.Home =  changedUser.Home;
+
+                    database.UpdateAsync(user);
+                    return;
                 }
             }
         }
