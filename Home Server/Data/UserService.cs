@@ -7,18 +7,27 @@
  */
 
 using Home_Server.Models;
+using Microsoft.AspNetCore.Components;
+using MySqlConnector;
 
 namespace Home_Server.Data
 {
     public class UserService
     {
-        private List<UserModel> users;
+        private IDBService<UserModel, List<UserModel>> database;
+        private List<UserModel> users;  // Local list of UserModels
         private int nextUserID;
 
-        public UserService()
+        public UserService(MySqlConnection dbConnection)
         {
-            nextUserID = 0;
-            users = new List<UserModel>();
+            nextUserID = 1;
+            database = new DBUserService<UserModel, List<UserModel>>(dbConnection);
+        }
+
+        public async Task Init()
+        {
+            users = await database.GetAllAsync();
+            SetUserID(users.Last().Id);
         }
 
         public void SetUserID(int uID)
@@ -30,7 +39,7 @@ namespace Home_Server.Data
         {
             user.Id = nextUserID;
             users.Add(user);
-
+            database.AddAsync(user);
             nextUserID++;
         }
 

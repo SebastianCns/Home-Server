@@ -1,12 +1,20 @@
 ﻿@page "/"
 
+@inject Home_Server.Data.UserService userService;
+
 <PageTitle>Index</PageTitle>
 
 @code{
-/*Author: SebastianCns Date: 25.01.23
-*
-*Description:
-*
-*
-*/
+    /*Author: SebastianCns Date: 25.01.23
+    *
+    *Description:
+    *
+    *
+    */
+
+    protected override void OnInitialized()
+    {
+        userService.Init(); // Init to get the user data from database
+        base.OnInitialized();
+    }
 }
