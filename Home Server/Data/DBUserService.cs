@@ -1,7 +1,8 @@
-﻿/*Author: SebastianCns Date: 26.01.23
+﻿/*Author: SebastianCns Date: 27.01.23
 *
 *Description:
-*
+*This class communicates with the database to add, delete and update users.
+*In Additon you can get all users data which are currently saved in the database
 *
 */
 
@@ -21,7 +22,7 @@ namespace Home_Server.Data
             users = new T_List();
             command = connection.CreateCommand();
         }
-        public async void AddAsync(T Model)
+        public async void AddAsync(T Model) // Add new user to database
         {
             command.CommandText =
                 @"INSERT INTO users " +
@@ -33,30 +34,24 @@ namespace Home_Server.Data
                 "VALUES " +
                 "(@Id, @DayOfBirth, @Email, @Home);";
 
-            command.Parameters.Clear();
-            command.Parameters.AddWithValue("@Id", Model.Id);
-            command.Parameters.AddWithValue("@Name", Model.Name);
-            command.Parameters.AddWithValue("@FamilyName", Model.FamilyName);
-            command.Parameters.AddWithValue("@DayOfBirth", Model.DayOfBirth);
-            command.Parameters.AddWithValue("@Email", Model.Email);
-            command.Parameters.AddWithValue("@Home", Model.Home);
+            SetQueryParameter(Model);
 
             await command.ExecuteNonQueryAsync();
         }
 
-        public async void DeleteAsync(T Model)
+        public async void DeleteAsync(T Model) // Delete given user
         {
             command.CommandText = 
                 @"DELETE FROM users " +
                 "WHERE " +
                 "UID = @Id;";
-            command.Parameters.Clear();
-            command.Parameters.AddWithValue("@Id", Model.Id);
+
+            SetQueryParameter(Model);
 
             await command.ExecuteNonQueryAsync();
         }
 
-        public async Task<T_List> GetAllAsync()
+        public async Task<T_List> GetAllAsync() // Get all user with userdate
         {
             users.Clear();
 
@@ -87,9 +82,34 @@ namespace Home_Server.Data
             return users;
         }
 
-        public void UpdateAsync(T Model)
+        public async void UpdateAsync(T Model) // Update user given user
         {
-            throw new NotImplementedException();
+            command.CommandText =
+                "UPDATE users " +
+                "SET " +
+                "name = @Name, familyname = @FamilyName " +
+                "WHERE " +
+                "UID = @Id; " +
+                "UPDATE userdata " +
+                "SET " +
+                "dayofbirth = @DayOfBirth, email = @Email, home = @Home " +
+                "WHERE " +
+                "UID = @Id; ";
+
+            SetQueryParameter(Model);
+
+            await command.ExecuteNonQueryAsync();
+        }
+
+        private void SetQueryParameter(T Model) // Set the placeholder for the query
+        {
+            command.Parameters.Clear();
+            command.Parameters.AddWithValue("@Id", Model.Id);
+            command.Parameters.AddWithValue("@Name", Model.Name);
+            command.Parameters.AddWithValue("@FamilyName", Model.FamilyName);
+            command.Parameters.AddWithValue("@DayOfBirth", Model.DayOfBirth);
+            command.Parameters.AddWithValue("@Email", Model.Email);
+            command.Parameters.AddWithValue("@Home", Model.Home);
         }
     }
 }

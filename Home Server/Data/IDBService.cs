@@ -7,7 +7,7 @@
 
 namespace Home_Server.Data
 {
-    public interface IDBService<T, T_List>  // Need to create objects of 'T' inside the class which implements the interface
+    public interface IDBService<T, T_List> //T = Model; T_List = List of Models
     {
         Task<T_List> GetAllAsync();
         void AddAsync(T Model);
