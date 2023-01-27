@@ -33,6 +33,7 @@ namespace Home_Server.Data
                 "VALUES " +
                 "(@Id, @DayOfBirth, @Email, @Home);";
 
+            command.Parameters.Clear();
             command.Parameters.AddWithValue("@Id", Model.Id);
             command.Parameters.AddWithValue("@Name", Model.Name);
             command.Parameters.AddWithValue("@FamilyName", Model.FamilyName);
@@ -43,9 +44,16 @@ namespace Home_Server.Data
             await command.ExecuteNonQueryAsync();
         }
 
-        public void DeleteAsync(T Model)
+        public async void DeleteAsync(T Model)
         {
-            throw new NotImplementedException();
+            command.CommandText = 
+                @"DELETE FROM users " +
+                "WHERE " +
+                "UID = @Id;";
+            command.Parameters.Clear();
+            command.Parameters.AddWithValue("@Id", Model.Id);
+
+            await command.ExecuteNonQueryAsync();
         }
 
         public async Task<T_List> GetAllAsync()

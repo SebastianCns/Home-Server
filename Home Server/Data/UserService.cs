@@ -68,6 +68,7 @@ namespace Home_Server.Data
                 if(user.Id == id)
                 {
                     users.Remove(user);
+                    database.DeleteAsync(user);
                     return;
                 }
             }
