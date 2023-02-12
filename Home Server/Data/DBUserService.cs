@@ -57,7 +57,8 @@ namespace Home_Server.Data
 
             command.CommandText = 
                 "SELECT " +
-                "users.UID, users.name, users.familyname, userdata.dayofbirth, userdata.email, userdata.home " +
+                "users.UID, users.name, users.familyname, " +
+                "userdata.dayofbirth, userdata.email, userdata.home " +
                 "FROM " +
                 "users " +
                 "INNER JOIN " +
