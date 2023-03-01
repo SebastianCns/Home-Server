@@ -1,7 +1,10 @@
+using Home_Server.Authentication;
 using Home_Server.Data;
 using Home_Server.Models;
 using Home_Server.Shared;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using Microsoft.AspNetCore.Components.Web;
 using MySqlConnector;
 
@@ -36,7 +39,11 @@ app.Run();
 static void ConfigureServices(IServiceCollection service, MySqlConnection dbCon)
 {
     // Add services to the container.
+    service.AddAuthenticationCore();
     service.AddRazorPages(); 
     service.AddServerSideBlazor();
+    service.AddScoped<ProtectedSessionStorage>();   // ??? Google AddScoped ???
+    service.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+    service.AddSingleton<UserAccountService>();
     service.AddSingleton<UserService>(us => new UserService(dbCon));    // Register Service
 }

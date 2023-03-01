@@ -1,4 +1,5 @@
 ﻿@page "/user-detail"
+@attribute [Authorize(Roles = "Admin")]
 
 @inject NavigationManager navigationManager;
 @inject IJSRuntime jsRuntime;

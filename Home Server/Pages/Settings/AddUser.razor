@@ -1,4 +1,5 @@
 ﻿@page "/add-user"
+@attribute [Authorize(Roles = "Admin")]
 
 @using Home_Server.Models
 @inject NavigationManager navigationManager;
