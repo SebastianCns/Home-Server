@@ -19,8 +19,8 @@ else
                 <th>Birthday</th>
                 <th>Email</th>
                 <th>Home</th>
-                <th>Edit</th>
                 <th>Delete</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody>
@@ -33,11 +33,14 @@ else
         </tbody>
     </table>
 }
-
-<button style="background-color:cadetblue; color:white"
-    @onclick="AddUser">
-    Add User
-</button>
+<AuthorizeView Roles="Admin">
+    <Authorized>
+        <button style="background-color:cadetblue; color:white"
+            @onclick="AddUser">
+            Add User
+        </button>
+    </Authorized>
+</AuthorizeView>
 
 @code {
     /*Author: SebastianCns Date: 25.01.23

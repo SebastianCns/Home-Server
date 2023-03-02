@@ -1,4 +1,11 @@
-﻿namespace Home_Server.Authentication
+﻿/*Author: SebastianCns Date: 02.03.23
+ * 
+ *Description:
+ *This class represents a current user-session 
+ *
+ */
+
+namespace Home_Server.Authentication
 {
     public class UserSession
     {

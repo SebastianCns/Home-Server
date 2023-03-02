@@ -1,4 +1,13 @@
-﻿using Microsoft.AspNetCore.Components.Authorization;
+﻿/*Author: SebastianCns Date: 02.03.23
+*
+*Description:
+*This class handels the authentication of the
+*user-management.
+*source: https://www.youtube.com/watch?v=iq2btD9WufI
+*
+*/
+
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 using System.Security.Claims;
 
@@ -28,10 +37,10 @@ namespace Home_Server.Authentication
                 }
 
                 var claimsPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, userSession.UserName),
-                new Claim(ClaimTypes.Role, userSession.Role)
-            }, "CustomAuth"));
+                {
+                    new Claim(ClaimTypes.Name, userSession.UserName),
+                    new Claim(ClaimTypes.Role, userSession.Role)
+                }, "CustomAuth"));
 
                 return await Task.FromResult(new AuthenticationState(claimsPrincipal));
             }

@@ -20,12 +20,19 @@
             <input @bind="model.Password" type="password" class="form-control" placeholder="Password" />
         </div>
         <div class="mb-3 d-grid gap-2">
-            <button @onclick="Authenticate" class="btn btn-primary">Login</button>
+            <button style="background-color:cadetblue; color:white" @onclick="Authenticate" class="btn btn-primary">Login</button>
         </div>
     </div>
 </div>
 
 @code {
+    /*Author: SebastianCns Date: 02.03.23
+    *
+    *Description:
+    *This code is for the login dialog. It checks
+    *if a user exists and if his password is correct.
+    *
+    */
     private class Model
     {
         public string UserName { get; set; }

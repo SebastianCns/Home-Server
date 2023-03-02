@@ -1,5 +1,5 @@
 ﻿@page "/edit-user/{userId:int}"
-@attribute [Authorize(Roles = "Admin")]
+@attribute [Authorize(Roles = "Admin, User")]
 
 @using Home_Server.Models
 @inject NavigationManager navigationManager;

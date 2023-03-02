@@ -26,7 +26,14 @@
 </td>
 
 <td>
-    <button style="background-color:cadetblue; color:white" @onclick="Delete">Delete</button>
+    <AuthorizeView Roles="Admin">
+        <Authorized>
+           <button style="background-color:cadetblue; color:white" @onclick="Delete">Delete</button>
+        </Authorized>
+        <NotAuthorized>
+            <button style="background-color:cadetblue; color:white">N. Auth</button>
+        </NotAuthorized>
+    </AuthorizeView>
 </td>
 
 <td>

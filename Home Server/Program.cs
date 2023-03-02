@@ -42,7 +42,7 @@ static void ConfigureServices(IServiceCollection service, MySqlConnection dbCon)
     service.AddAuthenticationCore();
     service.AddRazorPages(); 
     service.AddServerSideBlazor();
-    service.AddScoped<ProtectedSessionStorage>();   // ??? Google AddScoped ???
+    service.AddScoped<ProtectedSessionStorage>();
     service.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
     service.AddSingleton<UserAccountService>();
     service.AddSingleton<UserService>(us => new UserService(dbCon));    // Register Service
