@@ -5,7 +5,7 @@
 @inject Home_Server.Data.UserService userService;
 @inject NavigationManager navigationManager;
 
-@if (users == null || users.Count == 0)
+@if (_users == null || _users.Count == 0)
 {
     <p>No users to display</p>
 } 
@@ -24,7 +24,7 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach(var user in users)
+            @foreach(var user in _users)
             {
                 <tr>
                     <UserDetail CurrentUser="user" OnDeleteEvent="DeleteUser"></UserDetail>
@@ -51,11 +51,11 @@ else
     *
     */
 
-    private List<UserModel> users;
+    private List<UserModel> _users;
 
     protected override void OnInitialized()
     {
-        users = userService.GetUsers();
+        _users = userService.GetUsers();
         base.OnInitialized();
     }
 

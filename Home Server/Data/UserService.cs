@@ -15,43 +15,43 @@ namespace Home_Server.Data
 {
     public class UserService
     {
-        private IDBService<UserModel, List<UserModel>> database;
-        private List<UserModel> users;  // Local list of UserModels
-        private int nextUserID;
+        private IDBService<UserModel, List<UserModel>> _database;
+        private List<UserModel> _users;  // Local list of UserModels
+        private int _nextUserID;
 
         public UserService(MySqlConnection dbConnection)
         {
-            nextUserID = 1;
-            database = new DBUserService<UserModel, List<UserModel>>(dbConnection);
+            _nextUserID = 1;
+            _database = new DBUserService<UserModel, List<UserModel>>(dbConnection);
         }
 
         public async Task Init()
         {
-            users = await database.GetAllAsync();
-            SetUserID(users.Last().Id);
+            _users = await _database.GetAllAsync();
+            SetUserID(_users.Last().Id);
         }
 
         public void SetUserID(int uID)
         {
-            nextUserID = uID + 1;
+            _nextUserID = uID + 1;
         }
 
         public void AddUser(UserModel user)
         {
-            user.Id = nextUserID;
-            users.Add(user);
-            database.AddAsync(user);
-            nextUserID++;
+            user.Id = _nextUserID;
+            _users.Add(user);
+            _database.AddAsync(user);
+            _nextUserID++;
         }
 
         public List<UserModel> GetUsers()
         {
-            return users;
+            return _users;
         }
 
         public UserModel GetUser(int id)
         {
-            foreach(var user in users)
+            foreach(var user in _users)
             {
                 if (user.Id == id)
                 {
@@ -64,12 +64,12 @@ namespace Home_Server.Data
 
         public void DeleteUser(int id)
         {
-            foreach(var user in users)
+            foreach(var user in _users)
             {
                 if(user.Id == id)
                 {
-                    users.Remove(user);
-                    database.DeleteAsync(user);
+                    _users.Remove(user);
+                    _database.DeleteAsync(user);
                     return;
                 }
             }
@@ -77,7 +77,7 @@ namespace Home_Server.Data
 
         public void EditUser(UserModel changedUser)
         {
-            foreach(var user in users)
+            foreach(var user in _users)
             {
                 if(user.Id == changedUser.Id)
                 {
@@ -87,7 +87,7 @@ namespace Home_Server.Data
                     user.Email = changedUser.Email;
                     user.Home =  changedUser.Home;
 
-                    database.UpdateAsync(user);
+                    _database.UpdateAsync(user);
                     return;
                 }
             }
