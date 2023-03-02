@@ -12,14 +12,19 @@
 
     <main>
         <div style="background-image:none; background-color:" class="top-row px-4">
+            <AuthorizeView>
+                <Authorized>
+                    <a>Logged Account: @context.User.Identity.Name   |</a>
+                </Authorized>
+                <NotAuthorized>
+                    <a>Logged Account: Guest   |</a>
+                </NotAuthorized>
+            </AuthorizeView>
             <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
             <AuthorizeView>
                 <Authorized>
                     <a @onclick="Logout" href="javascript:void(0)">Logout</a>
                 </Authorized>
-                <NotAuthorized>
-                    <a href="/login">Login</a>
-                </NotAuthorized>
             </AuthorizeView>
         </div>
 
