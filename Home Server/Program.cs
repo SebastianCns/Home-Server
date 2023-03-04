@@ -44,6 +44,6 @@ static void ConfigureServices(IServiceCollection service, MySqlConnection dbCon)
     service.AddServerSideBlazor();
     service.AddScoped<ProtectedSessionStorage>();
     service.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
-    service.AddSingleton<UserAccountService>();
+    service.AddSingleton<UserAccountService>(uas => new UserAccountService(dbCon));
     service.AddSingleton<UserService>(us => new UserService(dbCon));    // Register Service
 }

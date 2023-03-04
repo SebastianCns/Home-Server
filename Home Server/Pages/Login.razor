@@ -41,7 +41,7 @@
 
     private async Task Authenticate()
     {
-        var userAccount = userAccountService.GetByUserName(_model.UserName);
+        var userAccount = await userAccountService.GetByUserName(_model.UserName);
 
         if (userAccount == null)
         {
