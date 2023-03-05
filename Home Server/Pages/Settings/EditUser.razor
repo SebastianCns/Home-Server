@@ -2,8 +2,10 @@
 @attribute [Authorize(Roles = "Admin, User")]
 
 @using Home_Server.Models
-@inject NavigationManager navigationManager;
-@inject Home_Server.Data.UserService userService;
+@using Home_Server.Authentication
+@inject NavigationManager navigationManager
+@inject Home_Server.Data.UserService userService
+@inject UserAccountService uaService
 
 <h1>Edit User</h1>
 <AddEditUser CurrentUser="_user" OnSaveEvent="SaveUserEdit"></AddEditUser>
@@ -18,17 +20,27 @@
     [Parameter]
     public int UserId { get; set; }
 
-    private UserModel _user; 
+    private UserModel _user;
+    private string _oldUserName;
+    private string _oldUserFamilyname;
 
     protected override void OnInitialized()
     {
         _user = userService.GetUser(UserId);
+        _oldUserName = _user.Name;
+        _oldUserFamilyname = _user.FamilyName;
         base.OnInitialized();
     }
 
-    private void SaveUserEdit()
+    private async Task SaveUserEdit()
     {
-        userService.EditUser(_user);
+        await userService.EditUser(_user);
+        // Update username for login if name or familyname has changed
+        if(_oldUserName != _user.Name || _oldUserFamilyname != _user.FamilyName)
+        {
+            await uaService.UpdateUserName(_user);
+        }
+
         navigationManager.NavigateTo("/settings");
     }
 }

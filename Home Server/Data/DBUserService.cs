@@ -83,7 +83,7 @@ namespace Home_Server.Data
             return _users;
         }
 
-        public async void UpdateAsync(T Model) // Update user given user
+        public async Task UpdateAsync(T Model) // Update user given user
         {
             _command.CommandText =
                 "UPDATE users " +

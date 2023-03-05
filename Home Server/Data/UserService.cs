@@ -75,7 +75,7 @@ namespace Home_Server.Data
             }
         }
 
-        public void EditUser(UserModel changedUser)
+        public async Task EditUser(UserModel changedUser)
         {
             foreach(var user in _users)
             {
@@ -87,7 +87,7 @@ namespace Home_Server.Data
                     user.Email = changedUser.Email;
                     user.Home =  changedUser.Home;
 
-                    _database.UpdateAsync(user);
+                    await _database.UpdateAsync(user);
                     return;
                 }
             }

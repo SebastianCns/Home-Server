@@ -11,7 +11,7 @@ namespace Home_Server.Data
     {
         Task<T_List> GetAllAsync();
         void AddAsync(T Model);
-        void UpdateAsync(T Model);
+        Task UpdateAsync(T Model);
         void DeleteAsync(T Model);
     }
 }

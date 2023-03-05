@@ -6,6 +6,7 @@
 *the Home-Server project.
 *
 */
+using Home_Server.Models;
 using MySqlConnector;
 
 namespace Home_Server.Authentication
@@ -61,6 +62,23 @@ namespace Home_Server.Authentication
         public void UpdatePassword(string userName)
         {
 
+        }
+
+        public async Task UpdateUserName(UserModel userModel)
+        {
+            string UserName = userModel.Name.ToLower() + "." + userModel.FamilyName.ToLower();
+            _cmd.CommandText =
+                "UPDATE logininformation " +
+                "SET " +
+                "username = @UserName " +
+                "WHERE " +
+                "UID = @Id; ";
+
+            _cmd.Parameters.Clear();
+            _cmd.Parameters.AddWithValue("@UserName", UserName);
+            _cmd.Parameters.AddWithValue("@Id", userModel.Id);
+
+            await _cmd.ExecuteNonQueryAsync();
         }
 
         public async Task AddUserAccount(UserAccount userAccount, int userId)
