@@ -46,11 +46,14 @@
         if (userAccount == null)
         {
             await jsRuntime.InvokeVoidAsync("alert", "User does not exist");
+            _model.UserName = "";
+            _model.Password = "";
             return;
         }
         else if (userAccount.Password != _model.Password)
         {
             await jsRuntime.InvokeVoidAsync("alert", "Password is incorrect");
+            _model.Password = "";
             return;
         }
 

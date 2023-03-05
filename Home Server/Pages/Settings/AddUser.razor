@@ -26,6 +26,7 @@
     private void SaveUserAdd()
     {
         userService.AddUser(_user);
-        navigationManager.NavigateTo("/set-password/" + _user.Name + "." + _user.FamilyName + "/" + _user.Id);
+        string userName = _user.Name.ToLower() + "." + _user.FamilyName.ToLower();
+        navigationManager.NavigateTo("/set-password/" + userName + "/" + _user.Id);
     }
 }

@@ -63,9 +63,21 @@ namespace Home_Server.Authentication
 
         }
 
-        public void AddUserAccount(UserAccount userAccount, int userId)
+        public async Task AddUserAccount(UserAccount userAccount, int userId)
         {
+            _cmd.CommandText =
+                "INSERT INTO logininformation " +
+                "(UID, username, password, userrole) " +
+                "VALUES " +
+                "(@UID, @UserName, @Password, @Role); ";
 
+            _cmd.Parameters.Clear();
+            _cmd.Parameters.AddWithValue("@UID", userId);
+            _cmd.Parameters.AddWithValue("@UserName", userAccount.UserName);
+            _cmd.Parameters.AddWithValue("@Password", userAccount.Password);
+            _cmd.Parameters.AddWithValue("@Role", userAccount.Role);
+
+            await _cmd.ExecuteNonQueryAsync();
         }
     }
 }
